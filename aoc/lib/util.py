@@ -6,9 +6,9 @@ def get_problem_input(strip: bool = True, test: bool = False) -> str:
     """
     Get problem input automagically, solution file is inferred from the call stack
 
-    Input files are located in the `days/inputs` folder
+    Input files are located in the `solution/inputs` folder
 
-    Note that input files have to be named /{day_number}/a|b.txt
+    Note that input files have to be named /day{n}/a|b.txt
     """
 
     caller_file = inspect.stack()[1].filename
