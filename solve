@@ -1,0 +1,66 @@
+#!python
+import importlib
+from enum import Enum
+from time import perf_counter_ns
+from typing import cast
+
+import typer
+
+from aoc.solver import Solver
+
+app = typer.Typer(
+    help="Advent of Code 2021",
+    add_completion=False,
+)
+
+
+class Part(str, Enum):
+    part_a = "a"
+    part_b = "b"
+
+
+@app.command()
+def solve(
+    day: int = typer.Option(..., help="Day"),
+    part: Part = typer.Option(..., help="Part", case_sensitive=False),
+    test: bool = typer.Option(False, help="Run against the test case"),
+) -> None:
+    """
+    Run a solution.
+    """
+    try:
+        solution = cast(
+            Solver, importlib.import_module(f"aoc.solutions.day{day}.{part}")
+        )
+
+        timer_start = perf_counter_ns()
+        res = solution.test() if test else solution.run()
+        timer_stop = perf_counter_ns()
+        delta = timer_stop - timer_start
+
+        result = typer.style(
+            res,
+            fg=typer.colors.GREEN,
+            bold=True,
+        )
+        typer.echo(f"Solution: {result}")
+
+        run_time = typer.style(
+            f"{delta / 1000 ** 2} ms",
+            fg=typer.colors.BRIGHT_CYAN,
+            bold=True,
+        )
+        typer.echo(f"Run time: {run_time}")
+
+    except ModuleNotFoundError:
+        typer.echo(
+            typer.style(
+                f"No solution found for day #{day} and part {part}!",
+                fg=typer.colors.BRIGHT_RED,
+                bold=True,
+            )
+        )
+
+
+if __name__ == "__main__":
+    app()
