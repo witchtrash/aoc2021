@@ -4,8 +4,8 @@ problem_input = get_problem_input()
 test_input = get_problem_input(test=True)
 
 
-def solve(x: str) -> str:
-    return x
+def solve(problem_input: str) -> str:
+    return problem_input
 
 
 def test() -> str:
