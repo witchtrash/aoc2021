@@ -13,7 +13,7 @@ class Input:
         return self.__raw.strip() if strip else self.__raw
 
     def lines(self) -> list[str]:
-        return [x for x in self.raw(strip=True).split("\n")]
+        return self.raw(strip=True).split("\n")
 
     def ints(self) -> list[int]:
         return list(map(int, self.lines()))
