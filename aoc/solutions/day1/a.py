@@ -1,11 +1,11 @@
-from aoc.lib.util import get_problem_input
+from aoc.lib.util import Input, get_problem_input
 
-problem_input = get_problem_input()
-test_input = get_problem_input(test=True)
+problem_input: Input = get_problem_input()
+test_input: Input = get_problem_input(test=True)
 
 
-def solve(problem_input: str) -> int:
-    measurements = [int(x) for x in problem_input.split()]
+def solve(problem_input: Input) -> int:
+    measurements = problem_input.ints()
     increases = 0
 
     for i in range(1, len(measurements)):

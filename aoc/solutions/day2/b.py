@@ -1,11 +1,11 @@
-from aoc.lib.util import get_problem_input
+from aoc.lib.util import Input, get_problem_input
 
-problem_input = get_problem_input()
-test_input = get_problem_input(test=True)
+problem_input: Input = get_problem_input()
+test_input: Input = get_problem_input(test=True)
 
 
-def solve(problem_input: str) -> int:
-    commands = [(x.split()[0], int(x.split()[1])) for x in problem_input.split('\n')]
+def solve(problem_input: Input) -> int:
+    commands = [(x.split()[0], int(x.split()[1])) for x in problem_input.lines()]
     horizontal = 0
     vertical = 0
     aim = 0

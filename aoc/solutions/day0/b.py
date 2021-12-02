@@ -1,11 +1,11 @@
-from aoc.lib.util import get_problem_input
+from aoc.lib.util import Input, get_problem_input
 
-problem_input = get_problem_input()
-test_input = get_problem_input(test=True)
+problem_input: Input = get_problem_input()
+test_input: Input = get_problem_input(test=True)
 
 
-def solve(problem_input: str) -> str:
-    return problem_input
+def solve(problem_input: Input) -> str:
+    return problem_input.raw()
 
 
 def test() -> str:

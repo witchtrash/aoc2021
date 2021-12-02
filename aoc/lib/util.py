@@ -2,7 +2,24 @@ import inspect
 from pathlib import Path
 
 
-def get_problem_input(strip: bool = True, test: bool = False) -> str:
+class Input:
+    __raw: str
+
+    def __init__(self, path: Path):
+        with open(path) as f:
+            self.__raw = f.read()
+
+    def raw(self, strip: bool = False) -> str:
+        return self.__raw.strip() if strip else self.__raw
+
+    def lines(self) -> list[str]:
+        return [x for x in self.raw(strip=True).split("\n")]
+
+    def ints(self) -> list[int]:
+        return list(map(int, self.lines()))
+
+
+def get_problem_input(test: bool = False) -> Input:
     """
     Get problem input automagically, solution file is inferred from the call stack
 
@@ -22,10 +39,4 @@ def get_problem_input(strip: bool = True, test: bool = False) -> str:
         / f"{part}{'.test' if test else ''}.txt"
     )
 
-    with open(input_path) as f:
-        content = f.read()
-
-    if strip:
-        content = content.strip()
-
-    return content
+    return Input(input_path)
