@@ -4,23 +4,25 @@ problem_input: Input = get_problem_input()
 test_input: Input = get_problem_input(test=True)
 
 
+def get_total(numbers: list[list[int]]) -> list[int]:
+    total: list[int] = [0] * len(numbers[0])
+
+    for n in numbers:
+        for nx, x in enumerate(n):
+            total[nx] += x
+
+    return total
+
+
 def solve(problem_input: Input) -> int:
     numbers = [[int(b) for b in x] for x in problem_input.lines()]
-    total: list[int]
-
-    bits = len(numbers[0])
 
     oxygen_numbers = numbers.copy()
     co2_numbers = numbers.copy()
 
     i = 0
     while len(oxygen_numbers) > 1:
-        total = [0] * bits
-
-        for n in oxygen_numbers:
-            for nx, x in enumerate(n):
-                total[nx] += x
-
+        total = get_total(oxygen_numbers)
         truth_table = list(map(lambda num: num * 2 >= len(oxygen_numbers), total))
 
         oxygen_numbers = list(
@@ -33,12 +35,7 @@ def solve(problem_input: Input) -> int:
 
     i = 0
     while len(co2_numbers) > 1:
-        total = [0] * bits
-
-        for n in co2_numbers:
-            for nx, x in enumerate(n):
-                total[nx] += x
-
+        total = get_total(co2_numbers)
         truth_table = list(map(lambda num: num * 2 < len(co2_numbers), total))
 
         co2_numbers = list(
