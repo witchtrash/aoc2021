@@ -18,6 +18,9 @@ class Input:
     def ints(self) -> list[int]:
         return list(map(int, self.lines()))
 
+    def csv(self) -> list[str]:
+        return self.raw(strip=True).split("\n")[0].split(",")
+
 
 def get_problem_input(test: bool = False) -> Input:
     """
